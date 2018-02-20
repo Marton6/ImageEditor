@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.marton.imageeditor.menu.EffectFragment">
+
+
+    <Button
+        android:id="@+id/buttonColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickColorEffectButton"
+        android:text="Color" />
+
+    <Button
+        android:id="@+id/buttonTransparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickTransparentEffectButton"
+        android:text="Transparent" />
+
+    <Button
+        android:id="@+id/buttonBlur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickBlurEffectButton"
+        android:text="Blur" />
+
+    <Button
+        android:id="@+id/buttonSharpen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickSharpenEffectButton"
+        android:text="Sharpen" />
+
+    <Button
+        android:id="@+id/buttonDarken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickDarkenEffectButton"
+        android:text="Darken" />
+
+    <Button
+        android:id="@+id/buttonContrast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickContrastEffectButton"
+        android:text="Contrast" />
+</LinearLayout>

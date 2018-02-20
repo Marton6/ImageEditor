@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.marton.imageeditor.menu.LayersFragment">
+
+    <Button
+        android:id="@+id/buttonSelToLayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Move Selection To Layer" />
+
+    <Button
+        android:id="@+id/buttonMoveLayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Move Layer" />
+
+    <Button
+        android:id="@+id/buttonLayers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Layers" />
+
+    <Button
+        android:id="@+id/buttonNewLayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New Layer" />
+</LinearLayout>
