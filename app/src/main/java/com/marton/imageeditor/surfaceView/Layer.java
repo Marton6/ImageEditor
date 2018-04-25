@@ -5,7 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 
+import com.marton.imageeditor.tool.Tools;
 import com.marton.imageeditor.tool.brush.Brush;
 import com.marton.imageeditor.tool.effect.Effect;
 
@@ -25,36 +27,31 @@ public class Layer {
         this.bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
         this.bitmap.setHasAlpha(true);
         this.lowResBitmap = Bitmap.createScaledBitmap(bitmap.copy(Bitmap.Config.ARGB_8888, true), (int)(bitmap.getWidth()*DOWNSCALE_FACTOR), (int)(bitmap.getHeight()*DOWNSCALE_FACTOR), true );
-        this.selection = new SelectionMask(bitmap.getWidth(), bitmap.getHeight());
 
         this.w = bitmap.getWidth();
         this.h = bitmap.getHeight();
+
+        this.selection = new SelectionMask(this, bitmap.getWidth(), bitmap.getHeight());
     }
 
     public void render(Canvas canvas, float left, float top, boolean downsampled) {
-        if(!downsampled)
+        if (!downsampled) {
             canvas.drawBitmap(bitmap, left, top, null);
-        else {
-            canvas.scale(1/DOWNSCALE_FACTOR, 1/DOWNSCALE_FACTOR);
+        } else {
+            canvas.scale(1 / DOWNSCALE_FACTOR, 1 / DOWNSCALE_FACTOR);
             canvas.drawBitmap(lowResBitmap, left, top, null);
             canvas.scale(DOWNSCALE_FACTOR, DOWNSCALE_FACTOR);
         }
         Paint paint = new Paint();
         paint.setAlpha(128);
         canvas.drawBitmap(selection.getAsBitmap(), left, top, paint);
-
     }
 
     public SelectionMask getSelection() {
         return selection;
     }
 
-    public void select(Brush crtBrush, float x, float y) {
-        crtBrush.select(getPixels(), selection.getPixels(), x, y, w, h);
-        selection.updateBitmap();
-    }
-
-    private int[] getPixels(){
+    public int[] getPixels(){
         if(this.pixels != null) return this.pixels;
         int[] pixels = new int[w*h];
         bitmap.getPixels(pixels, 0, w, 0, 0, w, h);
@@ -68,6 +65,6 @@ public class Layer {
         effect.apply(selection.getPixels(), pixels, w, h);
         bitmap.setPixels(pixels, 0, w, 0, 0, w, h);
         lowResBitmap = Bitmap.createScaledBitmap(bitmap.copy(Bitmap.Config.ARGB_8888, true), (int)(bitmap.getWidth()*DOWNSCALE_FACTOR), (int)(bitmap.getHeight()*DOWNSCALE_FACTOR), true );;
-        selection.updateBitmap();
+        //selection.updateBitmap();
     }
 }

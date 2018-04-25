@@ -44,6 +44,7 @@
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/background_light"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,6 +64,7 @@
             android:layout_margin="0dp"
             android:background="@drawable/icon_move"
             android:onClick="onClickMoveButton"
+            android:padding="0dp"
             android:textSize="10sp" />
 
         <Space

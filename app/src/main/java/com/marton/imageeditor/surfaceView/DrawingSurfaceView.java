@@ -17,6 +17,7 @@ import android.view.SurfaceView;
  */
 
 public class DrawingSurfaceView extends SurfaceView implements Runnable{
+    public static final float MOVE_THRESHOLD = 50.0f;
     private SurfaceHolder holder;
     private ImageProcessor imageProcessor;
     public float scaleFactor = 1f;
@@ -47,6 +48,7 @@ public class DrawingSurfaceView extends SurfaceView implements Runnable{
     public void run() {
         long time = System.currentTimeMillis();
         while (true) {
+            Canvas canvas = null;
             try {
                 long dt = System.currentTimeMillis()-time;
                 long sleepTime = (long)(1.0f/25.0f*1000)-dt;
@@ -55,7 +57,7 @@ public class DrawingSurfaceView extends SurfaceView implements Runnable{
                 time = System.currentTimeMillis();
 
                 if (!holder.getSurface().isValid()) continue;
-                Canvas canvas = holder.lockCanvas(null);
+                canvas = holder.lockCanvas(null);
                 if (canvas != null) {
                     canvas.translate(dx, dy);
                     canvas.translate(+canvas.getWidth()/2, +canvas.getHeight()/2);
@@ -67,7 +69,10 @@ public class DrawingSurfaceView extends SurfaceView implements Runnable{
                     holder.unlockCanvasAndPost(canvas);
                 }
             } catch (Exception e) {
-                ;
+                e.printStackTrace();
+                try{
+                    holder.unlockCanvasAndPost(canvas);
+                }catch(Exception e1){;}
             }
         }
     }

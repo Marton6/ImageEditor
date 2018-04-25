@@ -1,5 +1,9 @@
 package com.marton.imageeditor.tool.brush;
 
+import com.marton.imageeditor.surfaceView.SelectionMask;
+import com.marton.imageeditor.surfaceView.Selector;
+import com.marton.imageeditor.utility.Line;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,18 +12,18 @@ import java.util.List;
  * Created by marton on 1/6/18.
  */
 
-public abstract class Brush implements Runnable, Serializable{
+public abstract class Brush implements Serializable{
     protected float size;
 
     // running
     private boolean running;
 
-    // passed params
-    protected int[] pixels;
+    protected List<Vector2> points;
+
+    //passed stuff
+    protected Selector selector;
     protected int[] imgPixels;
     protected int w, h;
-
-    protected List<Vector2> points;
 
     public Brush() {
         running = false;
@@ -32,26 +36,30 @@ public abstract class Brush implements Runnable, Serializable{
         points = new ArrayList<>();
     }
 
-    @Override
-    public void run() {
-        while(points.size() > 0) {
-            select(points.get(0).x, points.get(0).y);
-            points.remove(0);
-        }
-        running = false;
-    }
-
     protected void select(float x, float y) {
 
     }
 
-    public void select(int[] imgPixels, int[] pixels, float x, float y, int w, int h){
-        this.pixels = pixels;
-        this.imgPixels = imgPixels;
-        points.add(new Vector2(x, y));
-        this.w = w;
-        this.h = h;
-        if(!running) new Thread(this).run();
+    public void selectLine(Line line, Selector selector){
+        this.selector = selector;
+        w = selector.getW();
+        h = selector.getH();
+
+        imgPixels = selector.getImgPixels();
+
+        if(line.p1.x>line.p2.x){
+            com.marton.imageeditor.utility.Vector2 p3 = line.p1;
+            line.p1 = line.p2;
+            line.p2 = p3;
+        }
+
+        float slope = (line.p1.y-line.p2.y)/(line.p1.x-line.p2.x);
+        float dev1 = line.p1.y-line.p1.x*slope;
+
+        for(int x1 = (int)line.p1.x; x1<=line.p2.x; x1++){
+            float y1 =  dev1+x1*slope;
+            select(x1, y1);
+        }
     }
 
     public void setSize(float size) {

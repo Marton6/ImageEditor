@@ -77,6 +77,9 @@ public class ImageProcessor {
     }
 
     public void onTapDown(float x, float y) {
+        if(tools.getCurrentTool() == Tools.TOOL_SELECT) {
+            layers.get(crtLayer).getSelection().getSelector().startSelection(tools.getCrtBrush(), x, y);
+        }
         if(tools.getCurrentTool() == Tools.TOOL_MOVE){
             startX = x;
             startY = y;
@@ -87,20 +90,29 @@ public class ImageProcessor {
 
     public void onTapHold(float x, float y) {
         if(tools.getCurrentTool() == Tools.TOOL_SELECT) {
-            layers.get(crtLayer).select(tools.getCrtBrush(), x, y);
+            //layers.get(crtLayer).select(tools.getCrtBrush(), x, y);
+            layers.get(crtLayer).getSelection().getSelector().continueSelection(x, y);
         }
-        else if(tools.getCurrentTool() == Tools.TOOL_MOVE){
+        else if(tools.getCurrentTool() == Tools.TOOL_MOVE
+                && Math.abs(x-startX)<DrawingSurfaceView.MOVE_THRESHOLD
+                && Math.abs(y-startY)<DrawingSurfaceView.MOVE_THRESHOLD){
             drawingSurfaceView.dx += x-startX;
             drawingSurfaceView.dy += y-startY;
         }
     }
 
     public void onTapUp(float x, float y) {
+        if(tools.getCurrentTool() == Tools.TOOL_SELECT) {
+            layers.get(crtLayer).getSelection().getSelector().endSelection(x, y);
+        }
         if(tools.getCurrentTool() == Tools.TOOL_MOVE)touchCnt--;
     }
 
     public void onTouchEvent(MotionEvent motionEvent) {
-        scaleDetector.onTouchEvent(motionEvent);
+
+        if(tools.getCurrentTool() == Tools.TOOL_MOVE){
+            scaleDetector.onTouchEvent(motionEvent);
+        }
     }
 
     public void applyEffect(Effect e){

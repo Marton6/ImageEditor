@@ -2,6 +2,9 @@ package com.marton.imageeditor.tool.brush;
 
 import android.graphics.Color;
 
+import com.marton.imageeditor.surfaceView.SelectionMask;
+import com.marton.imageeditor.utility.Line;
+
 /**
  * Created by marton on 2/1/18.
  */
@@ -19,7 +22,7 @@ public class SmartBrush extends Brush {
         for (int px = (int)(x - size); px <= x + size; px++) {
             for (int py = (int) (y - size); py <= y + size; py++) {
                 if (py*w+px < w*h && py*w+px >= 0 && (int)y*w+(int)x >=0 && (int)y*w+(int)x < w*h && isSelected((px-x)*(px-x)+(py-y)*(py-y)) && isInColorRange(imgPixels[(int)y*w+(int)x], imgPixels[py*w+px])) {
-                    pixels[py*w+px] = 0xffff00ff;
+                    selector.getSelectionMask().paintPixel(px, py);
                 }
             }
         }
