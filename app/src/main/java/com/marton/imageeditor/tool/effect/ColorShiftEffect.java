@@ -27,11 +27,18 @@ public class ColorShiftEffect extends Effect{
                 int pg = (pixels[i] >> 8) & 0x000000FF;
                 int pr = (pixels[i] >> 16) & 0x000000FF;
                 int pa = (pixels[i] >> 24) & 0x000000FF;
-
+/*
                 pb = (int) Math.min(pb * b, 0x000000FF);
                 pg = (int) Math.min(pg * g, 0x000000FF);
                 pr = (int) Math.min(pr * r, 0x000000FF);
                 pa = (int) Math.min(pa * a, 0x000000FF);
+*/
+
+                float grayscale = (pr+pg+pb)/3.0f/255.0f;
+
+                pr = (int)(grayscale*r);
+                pg = (int)(grayscale*g);
+                pb = (int)(grayscale*b);
 
                 pixels[i] = Color.argb(pa, pr, pg, pb);
             }

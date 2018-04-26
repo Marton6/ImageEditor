@@ -20,7 +20,6 @@ import com.marton.imageeditor.dialog.FillSensitivityDialog;
 import com.marton.imageeditor.dialog.SmartBrushDialog;
 import com.marton.imageeditor.menu.BrushFragment;
 import com.marton.imageeditor.menu.EffectFragment;
-import com.marton.imageeditor.menu.LayersFragment;
 import com.marton.imageeditor.surfaceView.DrawingSurfaceView;
 import com.marton.imageeditor.surfaceView.ImageProcessor;
 import com.marton.imageeditor.surfaceView.Layer;
@@ -108,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
         ((Button) view).setText(tools.getRenderModeName());
     }
 
+    public void onClickSave(View view){
+        ///TODO: implement method
+    }
+
     // bottom menu
     public void onClickMoveButton(View view){
         if(tools.getCurrentTool() == Tools.TOOL_MOVE) return;
@@ -122,10 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickEffectsButton(View view){
         addMenuFragment(new EffectFragment());
-    }
-
-    public void onClickLayersButton(View view){
-        addMenuFragment(new LayersFragment());
     }
 
     // select Menu / brush Menu
@@ -162,16 +161,8 @@ public class MainActivity extends AppCompatActivity {
         showEffectDialog(new ColorShiftDialog(), Tools.EFFECT_COLOR_SHIFT);
     }
 
-    public void onClickTransparentEffectButton(View view){
-        showEffectDialog(new EffectStrengthDialog(), Tools.EFFECT_TRANSPARENT);
-    }
-
     public void onClickBlurEffectButton(View view){
         showEffectDialog(new EffectStrengthDialog(), Tools.EFFECT_BLUR);
-    }
-
-    public void onClickSharpenEffectButton(View view){
-        showEffectDialog(new EffectStrengthDialog(), Tools.EFFECT_SHARPEN);
     }
 
     public void onClickDarkenEffectButton(View view){

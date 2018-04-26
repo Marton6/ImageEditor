@@ -37,11 +37,10 @@ public class Tools {
     private static Effect[] effects;
 
     public static final int EFFECT_COLOR_SHIFT = 0;
-    public static final int EFFECT_TRANSPARENT = 1;
+    //public static final int EFFECT_TRANSPARENT = 1;
     public static final int EFFECT_DARKEN = 2;
     public static final int EFFECT_BLUR = 3;
-    public static final int EFFECT_SHARPEN = 4;
-    public static final int EFFECT_CONTRAST = 5;
+    public static final int EFFECT_CONTRAST = 4;
 
     public Tools(){
         brushes = new Brush[2];
@@ -49,9 +48,10 @@ public class Tools {
         brushes[1] = new SmartBrush(40, 50);
         effects = new Effect[6];
         effects[0] = new ColorShiftEffect(1, 1, 1, 1);
-        effects[1] = new ColorShiftEffect(1, 1, 1, 1);
+        //effects[1] = new ColorShiftEffect(1, 1, 1, 1);
         effects[2] = null;
         effects[3] = new BlurEffect();
+
         crtBrush = 0;
     }
 

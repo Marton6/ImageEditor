@@ -16,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/renderModeButton"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:onClick="onClickRenderModeButton"
-        android:text="CURRENT"
+        android:onClick="onClickSave"
+        android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,21 +103,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <Button
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="0dp"
-            android:layout_weight="0"
-            android:background="@drawable/icon_layers"
-            android:onClick="onClickLayersButton"
-            android:padding="0dp"
-            android:text=""
-            android:textSize="10sp" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
