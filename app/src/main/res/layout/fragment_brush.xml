@@ -22,14 +22,6 @@
         android:text="Smart Brush" />
 
     <Button
-        android:id="@+id/buttonRegionFillBrush"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:onClick="onClickRegionFillButton"
-        android:text="Region Fill" />
-
-    <Button
         android:id="@+id/buttonSelectAllBrush"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

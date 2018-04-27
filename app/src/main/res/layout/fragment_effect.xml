@@ -14,25 +14,11 @@
         android:text="Color" />
 
     <Button
-        android:id="@+id/buttonTransparent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickTransparentEffectButton"
-        android:text="Transparent" />
-
-    <Button
         android:id="@+id/buttonBlur"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickBlurEffectButton"
         android:text="Blur" />
-
-    <Button
-        android:id="@+id/buttonSharpen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickSharpenEffectButton"
-        android:text="Sharpen" />
 
     <Button
         android:id="@+id/buttonDarken"

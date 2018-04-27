@@ -51,7 +51,7 @@ public class ColorShiftDialog extends BaseDialog {
                 .setPositiveButton("Apply", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        effect.setARGB(1, (float)rs.getProgress()/50.0f, (float)gs.getProgress()/50.0f, (float)bs.getProgress()/50.0f);
+                        effect.setARGB(1, (float)rs.getProgress(), (float)gs.getProgress(), (float)bs.getProgress());
                         ((MainActivity)getActivity()).getImageProcessor().applyEffect(effect);
                     }
                 })
