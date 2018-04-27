@@ -20,6 +20,24 @@ public class ColorShiftEffect extends Effect{
     @Override
     public void apply(int[] selection, int[] pixels, int w, int h) {
         a-=strength*a/100;
+
+        float sum = 0;
+        int cnt = 0;
+        for(int i=0;i<w*h;i++){
+            if(selection[i] != 0 && pixels[i] != 0) {
+                int pb = pixels[i] & 0x000000FF;
+                int pg = (pixels[i] >> 8) & 0x000000FF;
+                int pr = (pixels[i] >> 16) & 0x000000FF;
+
+                float grayscale = (pr+pg+pb)/3.0f/255.0f;
+
+                sum += grayscale;
+                cnt++;
+            }
+        }
+
+        float avg = sum/cnt;
+
         for(int i=0;i<w*h;i++){
             if(selection[i] != 0 && pixels[i] != 0){
                 //(alpha << 24) | (red << 16) | (green << 8) | blue
@@ -36,9 +54,10 @@ public class ColorShiftEffect extends Effect{
 
                 float grayscale = (pr+pg+pb)/3.0f/255.0f;
 
-                pr = (int)(grayscale*r);
-                pg = (int)(grayscale*g);
-                pb = (int)(grayscale*b);
+                grayscale = 1-(avg-grayscale);
+                pr = Math.min(255, (int)(grayscale*r));
+                pg = Math.min(255, (int)(grayscale*g));
+                pb = Math.min(255, (int)(grayscale*b));
 
                 pixels[i] = Color.argb(pa, pr, pg, pb);
             }
