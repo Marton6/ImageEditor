@@ -34,6 +34,7 @@ public class ApplyEffectTask extends AsyncTask<Effect, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Effect... effects) {
         effects[0].apply(selection, pixels, w, h);
+        layer.getSelection().clear();
         return true;
     }
 

@@ -18,7 +18,7 @@ public abstract class BaseDialog extends DialogFragment {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                if(!textView.getText().toString().matches(seekBar.getProgress()+""))textView.setText(seekBar.getProgress()+"");
             }
 
             @Override
@@ -28,10 +28,10 @@ public abstract class BaseDialog extends DialogFragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if(!textView.getText().toString().matches(seekBar.getProgress()+""))textView.setText(seekBar.getProgress()+"");
             }
         });
 
+        textView.setSelectAllOnFocus(true);
         textView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
