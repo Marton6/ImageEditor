@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickSave(View view){
-        ///TODO: implement method
+        imageProcessor.saveImage();
     }
 
     // bottom menu

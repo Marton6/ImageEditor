@@ -120,6 +120,10 @@ public class ImageProcessor {
         layers.get(crtLayer).applyEffect(e);
     }
 
+    public void saveImage() {
+        layers.get(crtLayer).save();
+    }
+
     public void clearSelection() {
         layers.get(crtLayer).getSelection().clear();
     }

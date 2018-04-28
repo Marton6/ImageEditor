@@ -6,7 +6,7 @@ package com.marton.imageeditor.tool.effect;
 
 public abstract class Effect {
 
-    protected int strength;
+    protected float strength;
 
     public Effect() {
     }
@@ -14,11 +14,11 @@ public abstract class Effect {
     public void apply(int[] selection, int[] pixels, int w, int h){
     }
 
-    public int getStrength() {
+    public float getStrength() {
         return strength;
     }
 
-    public void setStrength(int strength) {
+    public void setStrength(float strength) {
         this.strength = strength;
     }
 }

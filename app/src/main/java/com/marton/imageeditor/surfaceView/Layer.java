@@ -6,10 +6,16 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.os.Environment;
 
 import com.marton.imageeditor.tool.Tools;
 import com.marton.imageeditor.tool.brush.Brush;
 import com.marton.imageeditor.tool.effect.Effect;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 /**
  * Created by marton on 1/3/18.
@@ -66,5 +72,24 @@ public class Layer {
         bitmap.setPixels(pixels, 0, w, 0, 0, w, h);
         lowResBitmap = Bitmap.createScaledBitmap(bitmap.copy(Bitmap.Config.ARGB_8888, true), (int)(bitmap.getWidth()*DOWNSCALE_FACTOR), (int)(bitmap.getHeight()*DOWNSCALE_FACTOR), true );;
         //selection.updateBitmap();
+    }
+
+    public void save() {
+        try {
+            String path = Environment.getExternalStorageDirectory().toString().concat("/Image Editor/");
+            File dir = new File(path);
+            dir.mkdirs();
+
+            Long time = System.currentTimeMillis()/1000;
+            String timestamp = time.toString();
+
+            File file = new File(path, "image-"+timestamp+".png");
+
+            FileOutputStream fOut = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            fOut.close();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
     }
 }

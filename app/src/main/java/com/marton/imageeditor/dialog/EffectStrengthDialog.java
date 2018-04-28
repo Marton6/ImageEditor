@@ -51,7 +51,7 @@ public class EffectStrengthDialog extends BaseDialog {
                 .setPositiveButton("Apply", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        effect.setStrength(seekBar.getProgress());
+                        effect.setStrength(seekBar.getProgress()*1.f/seekBar.getMax());
                         ((MainActivity)getActivity()).getImageProcessor().applyEffect(effect);
                     }
                 })

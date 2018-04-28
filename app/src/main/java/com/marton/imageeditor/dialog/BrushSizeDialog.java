@@ -41,7 +41,7 @@ public class BrushSizeDialog extends BaseDialog {
         final TextView textView = (TextView) layout.findViewById(R.id.brushSizeTextView);
         final SeekBar seekBar = (SeekBar) layout.findViewById(R.id.brushSizeSeekBar);
 
-        link(seekBar, textView, (int)brush.getSize());
+        link(seekBar, textView, .5f);
 
         builder.setView(layout)
                 // Add action buttons

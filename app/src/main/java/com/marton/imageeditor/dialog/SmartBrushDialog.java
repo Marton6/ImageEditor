@@ -43,8 +43,8 @@ public class SmartBrushDialog extends BaseDialog {
         final TextView sensTextView = (TextView) layout.findViewById(R.id.smartBrushSensitivityTextView);
         final SeekBar sensSeekBar = (SeekBar) layout.findViewById(R.id.smartBrushSensitivitySeekBar);
 
-        link(sizeSeekBar, sizeTextView, (int)brush.getSize());
-        link(sensSeekBar, sensTextView, brush.getSensitivity());
+        link(sizeSeekBar, sizeTextView, .5f);
+        link(sensSeekBar, sensTextView, brush.getSensitivity()*1.f/sensSeekBar.getMax());
 
         builder.setView(layout)
                 .setPositiveButton("Apply", new DialogInterface.OnClickListener() {

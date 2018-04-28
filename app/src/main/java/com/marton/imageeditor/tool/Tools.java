@@ -5,6 +5,8 @@ import com.marton.imageeditor.tool.brush.CircleBrush;
 import com.marton.imageeditor.tool.brush.SmartBrush;
 import com.marton.imageeditor.tool.effect.BlurEffect;
 import com.marton.imageeditor.tool.effect.ColorShiftEffect;
+import com.marton.imageeditor.tool.effect.ContrastEffect;
+import com.marton.imageeditor.tool.effect.DarkenEffect;
 import com.marton.imageeditor.tool.effect.Effect;
 
 /**
@@ -37,20 +39,20 @@ public class Tools {
     private static Effect[] effects;
 
     public static final int EFFECT_COLOR_SHIFT = 0;
-    //public static final int EFFECT_TRANSPARENT = 1;
+    public static final int EFFECT_BLUR = 1;
     public static final int EFFECT_DARKEN = 2;
-    public static final int EFFECT_BLUR = 3;
-    public static final int EFFECT_CONTRAST = 4;
+    public static final int EFFECT_CONTRAST = 3;
 
     public Tools(){
         brushes = new Brush[2];
         brushes[0] = new CircleBrush(40);
         brushes[1] = new SmartBrush(40, 50);
+
         effects = new Effect[6];
         effects[0] = new ColorShiftEffect(1, 1, 1, 1);
-        //effects[1] = new ColorShiftEffect(1, 1, 1, 1);
-        effects[2] = null;
-        effects[3] = new BlurEffect();
+        effects[1] = new BlurEffect();
+        effects[2] = new DarkenEffect();
+        effects[3] = new ContrastEffect();
 
         crtBrush = 0;
     }

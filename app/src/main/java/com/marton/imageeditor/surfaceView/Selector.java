@@ -33,8 +33,12 @@ public class Selector implements Runnable{
     @Override
     public void run() {
         while(!lines.isEmpty()){
-            crtBrush.selectLine(lines.getFirst(), this);
-            lines.removeFirst();
+            try {
+                crtBrush.selectLine(lines.getFirst(), this);
+                lines.removeFirst();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         running = false;
     }

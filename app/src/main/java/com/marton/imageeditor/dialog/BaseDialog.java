@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 public abstract class BaseDialog extends DialogFragment {
 
-    protected void link(final SeekBar seekBar, final TextView textView, int defVal){
+    protected void link(final SeekBar seekBar, final TextView textView, float defProportion){
+        int defVal = (int)(defProportion*seekBar.getMax());
         textView.setText(defVal+"");
         seekBar.setProgress(defVal);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
