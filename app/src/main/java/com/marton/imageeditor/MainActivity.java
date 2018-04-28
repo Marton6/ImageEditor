@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         InputStream is = getContentResolver().openInputStream(imageUri);
         Bitmap bitmap = BitmapFactory.decodeStream(is);
 
-        imageProcessor.addLayer(new Layer(bitmap));
+        imageProcessor.addLayer(new Layer(this, bitmap));
     }
 
     // button onClick methods

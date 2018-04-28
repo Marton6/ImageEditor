@@ -1,5 +1,6 @@
 package com.marton.imageeditor.surfaceView;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -8,6 +9,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.os.Environment;
 
+import com.marton.imageeditor.task.ApplyEffectTask;
+import com.marton.imageeditor.task.SaveTask;
 import com.marton.imageeditor.tool.Tools;
 import com.marton.imageeditor.tool.brush.Brush;
 import com.marton.imageeditor.tool.effect.Effect;
@@ -22,14 +25,17 @@ import java.io.OutputStream;
  */
 
 public class Layer {
-    public static final float DOWNSCALE_FACTOR = .1f;
+    private static final float DOWNSCALE_FACTOR = .1f;
 
     private Bitmap bitmap, lowResBitmap;
     private int pixels[];
     private int w, h;
     private SelectionMask selection;
+    private Activity activity;
 
-    public Layer(Bitmap bitmap) {
+    public Layer(Activity activity, Bitmap bitmap) {
+        this.activity = activity;
+
         this.bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
         this.bitmap.setHasAlpha(true);
         this.lowResBitmap = Bitmap.createScaledBitmap(bitmap.copy(Bitmap.Config.ARGB_8888, true), (int)(bitmap.getWidth()*DOWNSCALE_FACTOR), (int)(bitmap.getHeight()*DOWNSCALE_FACTOR), true );
@@ -65,31 +71,19 @@ public class Layer {
         return this.pixels;
     }
 
-    // TODO: add loading dialog
     public void applyEffect(Effect effect){
         int[] pixels = getPixels();
-        effect.apply(selection.getPixels(), pixels, w, h);
-        bitmap.setPixels(pixels, 0, w, 0, 0, w, h);
-        lowResBitmap = Bitmap.createScaledBitmap(bitmap.copy(Bitmap.Config.ARGB_8888, true), (int)(bitmap.getWidth()*DOWNSCALE_FACTOR), (int)(bitmap.getHeight()*DOWNSCALE_FACTOR), true );;
-        //selection.updateBitmap();
+        int[] selected = selection.getPixels();
+
+        new ApplyEffectTask(activity, this, pixels, selected, w, h).execute(effect);
     }
 
     public void save() {
-        try {
-            String path = Environment.getExternalStorageDirectory().toString().concat("/Image Editor/");
-            File dir = new File(path);
-            dir.mkdirs();
+        new SaveTask(activity, bitmap).execute();
+    }
 
-            Long time = System.currentTimeMillis()/1000;
-            String timestamp = time.toString();
-
-            File file = new File(path, "image-"+timestamp+".png");
-
-            FileOutputStream fOut = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-            fOut.close();
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
+    public void updateBitmap(int[] pixels) {
+        bitmap.setPixels(pixels, 0, w, 0, 0, w, h);
+        lowResBitmap = Bitmap.createScaledBitmap(bitmap.copy(Bitmap.Config.ARGB_8888, true), (int)(bitmap.getWidth()*DOWNSCALE_FACTOR), (int)(bitmap.getHeight()*DOWNSCALE_FACTOR), true );
     }
 }
