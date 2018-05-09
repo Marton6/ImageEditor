@@ -3,20 +3,18 @@ package com.marton.imageeditor;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.marton.imageeditor.dialog.BrushSizeDialog;
 import com.marton.imageeditor.dialog.ColorShiftDialog;
 import com.marton.imageeditor.dialog.EffectStrengthDialog;
-import com.marton.imageeditor.dialog.FillSensitivityDialog;
 import com.marton.imageeditor.dialog.SmartBrushDialog;
 import com.marton.imageeditor.menu.BrushFragment;
 import com.marton.imageeditor.menu.EffectFragment;
@@ -24,7 +22,6 @@ import com.marton.imageeditor.surfaceView.DrawingSurfaceView;
 import com.marton.imageeditor.surfaceView.ImageProcessor;
 import com.marton.imageeditor.surfaceView.Layer;
 import com.marton.imageeditor.tool.Tools;
-import com.marton.imageeditor.tool.brush.Brush;
 import com.marton.imageeditor.tool.effect.ColorShiftEffect;
 
 import java.io.FileNotFoundException;
@@ -136,10 +133,6 @@ public class MainActivity extends AppCompatActivity {
     public void onClickSmartBrushButton(View view){
         tools.setCrtBrush(Tools.BRUSH_SMART);
         showBrushDialog(new SmartBrushDialog());
-    }
-    public void onClickRegionFillButton(View view){
-        tools.setCrtBrush(Tools.BRUSH_REGION);
-        showBrushDialog(new FillSensitivityDialog());
     }
 
     public void onClickSelectAllButton(View view){
